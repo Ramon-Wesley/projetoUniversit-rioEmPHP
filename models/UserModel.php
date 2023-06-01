@@ -1,18 +1,21 @@
 <?php
-require_once("./configuration/Connect.php");
-class UserModel extends Connect
+require_once "./configuration/Connect.php";
+class UserModel
 {
     private $tableName;
+    private $connection;
 
     public function __construct()
     {
-        parent::__construct();
+        //$this->connection = Connect::connection_database();
         $this->tableName = "usuario";
     }
 
     public function getAll()
     {
+        $data = array();
         $resultQuery = $this->connection->query("SELECT * FROM usuario");
-        return $resultQuery->fetchAll();
+        $data = $resultQuery->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
     }
 }
